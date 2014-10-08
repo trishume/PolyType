@@ -6,7 +6,7 @@
 
 #define MAX_KEYS_TRACK 32
 
-class USBKeyboardOutput : Pipe<KeyCodeEvent>
+class USBKeyboardOutput : public Pipe<KeyCodeEvent>
 {
 public:
   USBKeyboardOutput();
