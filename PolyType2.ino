@@ -22,15 +22,15 @@
 
 #define KB_ROWS 6
 #define KB_COLS 7
-#define MAT_COLS KB_COLS*2
-#define MAT_ROWS KB_ROWS
+#define M_COLS KB_COLS*2
+#define M_ROWS KB_ROWS
 #define SLEEP_COUNT 5000
 
 const char *header = "- PolyType -";
 const byte rowPins[KB_ROWS] = {0,1,2,3,22,21};
 const byte colPins[KB_COLS] = {4,5,6,7,8,9,10};
 // Software Dvorak
-const int matKeys[MAT_ROWS][MAT_COLS] = {
+const int matKeys[M_ROWS][M_COLS] = {
   {KEY_ESC         , KEY_ESC , KEY_2   , KEY_3   , KEY_4         , KEY_5        , KEY_TAB , KEY_TAB , KEY_6   , KEY_7          , KEY_8   , KEY_9     , KEY_MINUS   , KEY_RIGHT_BRACE},
   {KEY_RIGHT_BRACE , KEY_1   , KEY_W   , KEY_E   , KEY_R         , KEY_T        , KEY_TAB , KEY_TAB , KEY_Y   , KEY_U          , KEY_I   , KEY_O     , KEY_0       , KEY_BACKSLASH},
   {KEY_TAB         , KEY_Q   , KEY_S   , KEY_D   , KEY_F         , KEY_G        , KEY_TAB , KEY_TILDE,KEY_H   , KEY_J          , KEY_K   , KEY_L     , KEY_P       , KEY_LEFT_BRACE},
@@ -39,7 +39,7 @@ const int matKeys[MAT_ROWS][MAT_COLS] = {
   {0, 0,MODIFIERKEY_SHIFT,0, MODIFIERKEY_ALT,KEY_MEDIA_PLAY_PAUSE, KEY_RIGHT_BRACE   , KEY_TAB , KEY_MINUS,KEY_EQUAL      , KEY_A   , 0         , MODIFIERKEY_GUI, 0},
 };
 // Hardware Dvorak
-/*const int matKeys[MAT_ROWS][MAT_COLS] = {
+/*const int matKeys[M_ROWS][M_COLS] = {
   {KEY_ESC         , KEY_ESC , KEY_2   , KEY_3   , KEY_4         , KEY_5        , KEY_TAB , KEY_TAB , KEY_6   , KEY_7          , KEY_8   , KEY_9     , KEY_MINUS   , KEY_RIGHT_BRACE},
   {KEY_TILDE       , KEY_1   , KEY_W   , KEY_E   , KEY_R         , KEY_T        , KEY_TAB , KEY_TAB , KEY_Y   , KEY_U          , KEY_I   , KEY_O     , KEY_0       , KEY_QUOTE},
   {KEY_TAB         , KEY_QUOTE, KEY_O   , KEY_E   , KEY_U         , KEY_I        , KEY_TAB , KEY_TAB , KEY_D   , KEY_H          , KEY_T   , KEY_N     , KEY_S       , KEY_LEFT_BRACE},
@@ -48,7 +48,7 @@ const int matKeys[MAT_ROWS][MAT_COLS] = {
   {0, 0,MODIFIERKEY_SHIFT,0, MODIFIERKEY_ALT,KEY_MEDIA_PLAY_PAUSE, KEY_RIGHT_BRACE   , KEY_TAB , KEY_MINUS,KEY_EQUAL      , KEY_A   , 0         , MODIFIERKEY_GUI, 0},
 };*/
 
-int matrix[MAT_ROWS][MAT_COLS];
+int matrix[M_ROWS][M_COLS];
 int sleepCounter;
 Adafruit_PCD8544 display = Adafruit_PCD8544(14, 16, 15);
 USBKeyboardOutput usbOut = USBKeyboardOutput();
@@ -184,8 +184,8 @@ void setup() {
   printScreenHeader();
   Wire.begin(); // wake up I2C bus
 
-  for(int i=0; i<MAT_ROWS; i++){
-    for(int j=0; j<MAT_COLS; j++) {
+  for(int i=0; i<M_ROWS; i++){
+    for(int j=0; j<M_COLS; j++) {
       matrix[i][j] = 0;
     }
   }

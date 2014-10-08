@@ -15,4 +15,11 @@ struct KeyCodeEvent : public BaseKeyEvent
   int code;
 };
 
+struct KeyMatrixEvent : public BaseKeyEvent
+{
+  KeyMatrixEvent(int r, int c, KeyEventType typ) : row(r), col(c), BaseKeyEvent(typ) {}
+  int row;
+  int col;
+};
+
 #endif
