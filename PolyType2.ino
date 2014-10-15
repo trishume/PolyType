@@ -14,18 +14,17 @@
 #include "TeensyMatrixSource.h"
 #include "MCPMatrixSource.h"
 #include "LayoutProcessor.h"
-
-#define SLEEP_COUNT 5000
+#include "SleepCounter.h"
 
 const char *header = "- PolyType -";
 
-int sleepCounter;
 Adafruit_PCD8544 display = Adafruit_PCD8544(14, 16, 15);
 
 // Das Pipeline Elements
 TeensyMatrixSource teensySource;
 MCPMatrixSource mcpSource;
 LayoutProcessor layoutProc;
+SleepCounter sleepCounter;
 USBKeyboardOutput usbOut;
 
 void debug(const char *str) {
@@ -37,16 +36,9 @@ void debug(const char *str) {
 void printScreenHeader() {
   display.clearDisplay();
   display.println(header);
-  display.println("Version 0.0.3");
-  display.println("Codename: Pipe");
+  display.println("Version 0.0.4");
+  display.println("Codename: Nite");
   display.display();
-}
-
-void kick() {
-  if(sleepCounter == 0) {
-    printScreenHeader();
-  }
-  sleepCounter = SLEEP_COUNT;
 }
 
 void setupDisplay() {
@@ -63,7 +55,8 @@ void connectPipeline() {
   teensySource.out = &layoutProc;
   mcpSource.out = &layoutProc;
 
-  layoutProc.out = &usbOut;
+  layoutProc.out = &sleepCounter;
+  sleepCounter.out = &usbOut;
 }
 
 void setup() {
@@ -76,8 +69,6 @@ void setup() {
   teensySource.start();
   mcpSource.start();
   connectPipeline();
-
-  sleepCounter = SLEEP_COUNT;
 }
 
 // the loop routine runs over and over again forever:
@@ -87,13 +78,16 @@ void loop() {
   mcpSource.update();
   usbOut.commit();
 
-  if(sleepCounter == 1) {
+  if(sleepCounter.shouldDoSleep()) {
     Serial.println("sleep");
     display.clearDisplay();
     display.display();
+  } else if(sleepCounter.justWoke()) {
+    printScreenHeader();
   }
   // TODO add kicker pipeline step so this can be reenabled
   // if(sleepCounter > 0) sleepCounter--;
+  sleepCounter.tick();
 
   delay(10);        // delay in between reads for stability
 }
