@@ -15,6 +15,13 @@ struct KeyCodeEvent : public BaseKeyEvent
   int code;
 };
 
+struct KeyNameEvent : public BaseKeyEvent
+{
+  KeyNameEvent(char group, char c, KeyEventType typ) : group(group), key(c), BaseKeyEvent(typ) {}
+  char group; // ' ' = none, '.' = ascii, '~' = special
+  char key;
+};
+
 struct KeyMatrixEvent : public BaseKeyEvent
 {
   KeyMatrixEvent(int r, int c, KeyEventType typ) : row(r), col(c), BaseKeyEvent(typ) {}

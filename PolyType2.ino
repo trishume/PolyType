@@ -14,6 +14,7 @@
 #include "TeensyMatrixSource.h"
 #include "MCPMatrixSource.h"
 #include "LayoutProcessor.h"
+#include "CodeTransformer.h"
 #include "SleepCounter.h"
 
 const char *header = "- PolyType -";
@@ -24,6 +25,7 @@ Adafruit_PCD8544 display = Adafruit_PCD8544(14, 16, 15);
 TeensyMatrixSource teensySource;
 MCPMatrixSource mcpSource;
 LayoutProcessor layoutProc;
+CodeTransformer codeTrans;
 SleepCounter sleepCounter;
 USBKeyboardOutput usbOut;
 
@@ -36,8 +38,8 @@ void debug(const char *str) {
 void printScreenHeader() {
   display.clearDisplay();
   display.println(header);
-  display.println("Version 0.0.4");
-  display.println("Codename: Nite");
+  display.println("Version 0.1.0");
+  display.println("Codename: Asci");
   display.display();
 }
 
@@ -55,7 +57,8 @@ void connectPipeline() {
   teensySource.out = &layoutProc;
   mcpSource.out = &layoutProc;
 
-  layoutProc.out = &sleepCounter;
+  layoutProc.out = &codeTrans;
+  codeTrans.out = &sleepCounter;
   sleepCounter.out = &usbOut;
 }
 

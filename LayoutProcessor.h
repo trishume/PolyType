@@ -8,9 +8,12 @@ class LayoutProcessor : public Pipe<KeyMatrixEvent>
 {
 public:
   LayoutProcessor();
-  Pipe<KeyCodeEvent> *out;
+  Pipe<KeyNameEvent> *out;
 
   virtual void push(KeyMatrixEvent &event);
+
+protected:
+  int curLayout;
 };
 
 #endif
