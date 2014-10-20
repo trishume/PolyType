@@ -38,7 +38,7 @@ void debug(const char *str) {
 void printScreenHeader() {
   display.clearDisplay();
   display.println(header);
-  display.println("Version 0.1.0");
+  display.println("Version 0.1.1");
   display.println("Codename: Asci");
   display.display();
 }

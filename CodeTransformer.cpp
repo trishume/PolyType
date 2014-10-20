@@ -75,12 +75,12 @@ static const int specialKeyCodes[26] = {
   MODIFIERKEY_CTRL, // c
   KEY_DOWN, // d
   KEY_ENTER, // e
-  0, // f
-  0, // g
+  KEY_HOME, // f
+  KEY_END, // g
   MODIFIERKEY_CTRL | MODIFIERKEY_GUI | MODIFIERKEY_ALT | MODIFIERKEY_SHIFT, // h
   0, // i
-  0, // j
-  0, // k
+  KEY_PAGE_DOWN, // j
+  KEY_PAGE_UP, // k
   KEY_LEFT, // l
   0, // m
   0, // n
