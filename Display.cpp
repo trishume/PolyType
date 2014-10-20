@@ -6,7 +6,7 @@
 static Adafruit_PCD8544 theOnlyDisplay = Adafruit_PCD8544(14, 16, 15);
 const char *defaultHeader = "- PolyType -";
 
-Display::Display() : dirty(true) {
+Display::Display() : dirty(true), layoutName(0) {
   display = &theOnlyDisplay;
   header = defaultHeader;
 }
@@ -27,13 +27,22 @@ void Display::render() {
   display->clearDisplay();
   if(!sleeping) {
     display->println(header);
-    display->println("Version 0.1.2");
-    display->println("Codename: Asci");
+    display->println("Version 0.2.0");
+    display->println("Codename Mult");
+    if(layoutName != 0) {
+      display->println("Layout:");
+      display->println(layoutName);
+    }
   }
   display->display();
 }
 
 void Display::setSleeping(bool state) {
   sleeping = state;
+  dirty = 1;
+}
+
+void Display::setLayoutName(const char *name) {
+  layoutName = name;
   dirty = 1;
 }

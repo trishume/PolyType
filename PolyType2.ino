@@ -19,8 +19,6 @@
 #include "CodeTransformer.h"
 #include "SleepCounter.h"
 
-const char *header = "- PolyType -";
-
 Display disp;
 
 // Das Pipeline Elements
@@ -36,6 +34,7 @@ void connectPipeline() {
   mcpSource.out = &layoutProc;
 
   layoutProc.out = &codeTrans;
+  layoutProc.disp = &disp;
   codeTrans.out = &sleepCounter;
   sleepCounter.out = &usbOut;
 }
@@ -44,12 +43,14 @@ void setup() {
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
   disp.setup();
-  disp.render();
   Wire.begin(); // wake up I2C bus
 
   teensySource.start();
   mcpSource.start();
   connectPipeline();
+
+  layoutProc.setLayout(0);
+  disp.render();
 }
 
 // the loop routine runs over and over again forever:
