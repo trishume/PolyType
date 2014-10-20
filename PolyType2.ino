@@ -10,6 +10,8 @@
 #include <Adafruit_PCD8544.h>
 #include "Wire.h"
 
+#include "Display.h"
+
 #include "USBKeyboardOutput.h"
 #include "TeensyMatrixSource.h"
 #include "MCPMatrixSource.h"
@@ -19,7 +21,7 @@
 
 const char *header = "- PolyType -";
 
-Adafruit_PCD8544 display = Adafruit_PCD8544(14, 16, 15);
+Display disp;
 
 // Das Pipeline Elements
 TeensyMatrixSource teensySource;
@@ -28,30 +30,6 @@ LayoutProcessor layoutProc;
 CodeTransformer codeTrans;
 SleepCounter sleepCounter;
 USBKeyboardOutput usbOut;
-
-void debug(const char *str) {
-  Serial.print(str);
-  display.print(str);
-  display.display();
-}
-
-void printScreenHeader() {
-  display.clearDisplay();
-  display.println(header);
-  display.println("Version 0.1.1");
-  display.println("Codename: Asci");
-  display.display();
-}
-
-void setupDisplay() {
-  Serial.println("Setting up display");
-  display.begin();
-  display.setContrast(60);
-  display.clearDisplay();
-  display.setTextSize(1);
-  display.setTextColor(BLACK);
-  display.setCursor(0,0);
-}
 
 void connectPipeline() {
   teensySource.out = &layoutProc;
@@ -65,8 +43,8 @@ void connectPipeline() {
 void setup() {
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
-  setupDisplay();
-  printScreenHeader();
+  disp.setup();
+  disp.render();
   Wire.begin(); // wake up I2C bus
 
   teensySource.start();
@@ -83,11 +61,11 @@ void loop() {
 
   if(sleepCounter.shouldDoSleep()) {
     Serial.println("sleep");
-    display.clearDisplay();
-    display.display();
+    disp.setSleeping(true);
   } else if(sleepCounter.justWoke()) {
-    printScreenHeader();
+    disp.setSleeping(false);
   }
+  disp.render();
   // TODO add kicker pipeline step so this can be reenabled
   // if(sleepCounter > 0) sleepCounter--;
   sleepCounter.tick();
