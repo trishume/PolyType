@@ -10,7 +10,7 @@
 // ~x=escape, ~t=tab, ~p=play, ~l=left, ~r=right, ~u=up, ~d=down, ~b=backspace
 static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
   {
-    "~x. .2.3.4.5*a*d.6.7.8.9. *+",
+    "~x. .2.3.4.5.6.5.6.7.8.9. _+",
     ".].1.W.E.R.T~f~g.Y.U.I.O.0.\\",
     "~t.Q.S.D.F.G    .H.J.K.L.P.[",
     "~s.A.X.C.V.B~t.`.N.M.,...;.'",
@@ -19,21 +19,21 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
     "q;Soft Dvorak",
   },
   {
-    "~x. .2.3.4.5*a*q.6.7.8.9. *+",
-    ".].1.,...P.Y~f~g.F.G.C.R.0.\\",
-    "~t.'.O.E.U.I    .D.H.T.N.L.[",
-    "~s.A.Q.J.K.X~t.`.B.M.W.V.S.'",
-    "~s.;~l~r~a~b~x~e. ~c~u~d.Z~s",
-    "    ~s  ~o~p~j~k.-.=    ~h  ",
+    "____________________________",
+    ".=__.,...P.Y____.F.G.C.R____",
+    "__.'.O.E.U.I    .D.H.T.N.L./",
+    "__.A.Q.J.K.X____.B.M.W.V.S.-",
+    "__.;____________________.Z__",
+    "    __  ________.[.]    __  ",
     "d;Hard Dvorak",
   },
   {
-    "~x. .2.3.4.5. . .6.7.8.9. *+",
-    ".].1.W~u.R.T~f~g.Y.U.W.O.0.\\",
-    "~t.Q~l~d~r.G    .H.A.S.D.P.[",
-    "~s.A.X.C.V.B~t.`.N.M.,...;.'",
-    "~s.Z~l~r~a~b~x~e. ~c~u~d./~s",
-    "    ~s  ~o~p~j~k.-.=    ~h  ",
+    "____________________________",
+    "______~u____________.W______",
+    "____~l~d~r__    __.A.S.D.___",
+    "____________________________",
+    "____________________________",
+    "    __  ____________    __  ",
     "a;ARROWS+WASD",
   }
 };
@@ -46,7 +46,11 @@ void LayoutProcessor::push(KeyMatrixEvent &ev) {
   char group = layouts[curLayout][ev.row][ev.col*2];
   char key = layouts[curLayout][ev.row][ev.col*2+1];
 
-  if(group == '*' && ev.type == KeyDown) { // handle layer control keys here
+  if(group == '_' && key == '_') { // base layer inherit
+    group = layouts[0][ev.row][ev.col*2];
+    key = layouts[0][ev.row][ev.col*2+1];
+  }
+  if(group == '_' && ev.type == KeyDown) { // handle layout control keys here
     layoutControl(key);
     return;
   }

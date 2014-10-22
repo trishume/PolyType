@@ -27,7 +27,7 @@ void Display::render() {
   display->clearDisplay();
   if(!sleeping) {
     display->println(header);
-    display->println("Version 0.2.0");
+    display->println("Version 0.2.1");
     display->println("Codename Mult");
     if(layoutName != 0) {
       display->println("Layout:");
