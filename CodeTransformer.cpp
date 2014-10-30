@@ -115,6 +115,9 @@ int CodeTransformer::toCode(char group, char key) {
   case '~':
     if(key < 'a' || key > 'z') return 0; // bad layout
     return specialKeyCodes[key-'a'];
+  case '!'
+    if(key == 'c') return -1; // commit
+    return 0;
   }
   return 0; // unknown type
 }

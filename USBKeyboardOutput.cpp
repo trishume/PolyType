@@ -9,16 +9,17 @@ USBKeyboardOutput::USBKeyboardOutput() : changed(0), numDown(0) {
 
 void USBKeyboardOutput::push(KeyCodeEvent &ev) {
   if(ev.code == 0) return;
+  // commit control code
+  if(ev.code == -1) {
+    commit();
+    return;
+  }
   changed = 1;
   if (ev.type == KeyDown) {
-    // -6 because there might be a pathological case
-    // that segfaults the copy in commit()
-    if(numDown == (MAX_KEYS_TRACK - 6)) return;
-    // check if it's already down
-    for (int i = 0; i < numDown; ++i) {
-      if(keysDown[i] == ev.code) return;
-    }
-
+    // 2 just to be safe, I'm not risking 1
+    if(numDown == (MAX_KEYS_TRACK - 2)) return;
+    // NOTE: we allow the same code to be down multiple times
+    // to handle things like multiple different shift keys down at same time.
     keysDown[numDown] = ev.code;
     numDown++;
   } else if(ev.type == KeyUp) {
