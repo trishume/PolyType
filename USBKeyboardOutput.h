@@ -12,7 +12,7 @@ public:
   USBKeyboardOutput();
   ~USBKeyboardOutput() {};
 
-  virtual void push(KeyCodeEvent &ev);
+  virtual void push(const KeyCodeEvent &ev);
   void commit();
 
 private:

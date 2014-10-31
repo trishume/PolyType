@@ -10,7 +10,7 @@
 // ~x=escape, ~t=tab, ~p=play, ~l=left, ~r=right, ~u=up, ~d=down, ~b=backspace
 static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
   {
-    "~x. .2.3.4.5.6.5.6.7.8.9. _+",
+    "~x>0.2.3.4.5.6.5.6.7.8.9>1_+",
     ".].1.W.E.R.T~f~g.Y.U.I.O.0.\\",
     "~t.Q.S.D.F.G    .H.J.K.L.P.[",
     "~s.A.X.C.V.B~t.`.N.M.,...;.'",
@@ -40,7 +40,7 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
 
 LayoutProcessor::LayoutProcessor() : out(NULL), curLayout(0) {}
 
-void LayoutProcessor::push(KeyMatrixEvent &ev) {
+void LayoutProcessor::push(const KeyMatrixEvent &ev) {
   if(out == NULL) return;
 
   char group = layouts[curLayout][ev.row][ev.col*2];

@@ -10,7 +10,7 @@ public:
   CodeTransformer() : out(0) {};
   Pipe<KeyCodeEvent> *out;
 
-  virtual void push(KeyNameEvent &event);
+  virtual void push(const KeyNameEvent &event);
 
 protected:
   int toCode(char group, char key);

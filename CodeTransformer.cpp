@@ -98,7 +98,7 @@ static const int specialKeyCodes[26] = {
   0, // z
 };
 
-void CodeTransformer::push(KeyNameEvent &ev) {
+void CodeTransformer::push(const KeyNameEvent &ev) {
   if(out == NULL) return;
   int code = toCode(ev.group, ev.key);
   if(code == 0) return;
@@ -115,7 +115,7 @@ int CodeTransformer::toCode(char group, char key) {
   case '~':
     if(key < 'a' || key > 'z') return 0; // bad layout
     return specialKeyCodes[key-'a'];
-  case '!'
+  case '!':
     if(key == 'c') return -1; // commit
     return 0;
   }

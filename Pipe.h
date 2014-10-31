@@ -7,7 +7,7 @@ class Pipe
 public:
   virtual ~Pipe() {};
 
-  virtual void push(T &packet) = 0;
+  virtual void push(const T &packet) = 0;
 };
 
 #endif

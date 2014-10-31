@@ -12,7 +12,7 @@ public:
 
   int countDown;
 
-  virtual void push(KeyCodeEvent &event);
+  virtual void push(const KeyCodeEvent &event);
   void kick();
   void tick() {
     if(countDown > 0) countDown--;

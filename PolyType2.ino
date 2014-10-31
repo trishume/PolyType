@@ -16,6 +16,7 @@
 #include "TeensyMatrixSource.h"
 #include "MCPMatrixSource.h"
 #include "LayoutProcessor.h"
+#include "MacroProcessor.h"
 #include "CodeTransformer.h"
 #include "SleepCounter.h"
 
@@ -25,6 +26,7 @@ Display disp;
 TeensyMatrixSource teensySource;
 MCPMatrixSource mcpSource;
 LayoutProcessor layoutProc;
+MacroProcessor macroProc;
 CodeTransformer codeTrans;
 SleepCounter sleepCounter;
 USBKeyboardOutput usbOut;
@@ -33,8 +35,9 @@ void connectPipeline() {
   teensySource.out = &layoutProc;
   mcpSource.out = &layoutProc;
 
-  layoutProc.out = &codeTrans;
+  layoutProc.out = &macroProc;
   layoutProc.disp = &disp;
+  macroProc.out = &codeTrans;
   codeTrans.out = &sleepCounter;
   sleepCounter.out = &usbOut;
 }

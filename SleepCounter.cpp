@@ -10,7 +10,7 @@ void SleepCounter::kick() {
   countDown = SLEEP_COUNT;
 }
 
-void SleepCounter::push(KeyCodeEvent &ev) {
+void SleepCounter::push(const KeyCodeEvent &ev) {
   kick();
   out->push(ev);
 }

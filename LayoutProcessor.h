@@ -12,7 +12,7 @@ public:
   Pipe<KeyNameEvent> *out;
   Display *disp;
 
-  virtual void push(KeyMatrixEvent &event);
+  virtual void push(const KeyMatrixEvent &event);
 
   void setLayout(int layoutNum);
 protected:

@@ -7,7 +7,7 @@ USBKeyboardOutput::USBKeyboardOutput() : changed(0), numDown(0) {
   }
 }
 
-void USBKeyboardOutput::push(KeyCodeEvent &ev) {
+void USBKeyboardOutput::push(const KeyCodeEvent &ev) {
   if(ev.code == 0) return;
   // commit control code
   if(ev.code == -1) {
