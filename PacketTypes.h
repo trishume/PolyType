@@ -11,20 +11,20 @@ struct BaseKeyEvent
 
 struct KeyCodeEvent : public BaseKeyEvent
 {
-  KeyCodeEvent(int c, KeyEventType typ) : code(c), BaseKeyEvent(typ) {}
+  KeyCodeEvent(int c, KeyEventType typ) : BaseKeyEvent(typ), code(c) {}
   int code;
 };
 
 struct KeyNameEvent : public BaseKeyEvent
 {
-  KeyNameEvent(char group, char c, KeyEventType typ) : group(group), key(c), BaseKeyEvent(typ) {}
+  KeyNameEvent(char group, char c, KeyEventType typ) : BaseKeyEvent(typ), group(group), key(c) {}
   char group; // ' ' = none, '.' = ascii, '~' = special
   char key;
 };
 
 struct KeyMatrixEvent : public BaseKeyEvent
 {
-  KeyMatrixEvent(int r, int c, KeyEventType typ) : row(r), col(c), BaseKeyEvent(typ) {}
+  KeyMatrixEvent(int r, int c, KeyEventType typ) : BaseKeyEvent(typ), row(r), col(c) {}
   int row;
   int col;
 };
