@@ -3,7 +3,7 @@
 
 #define NUM_MACROS 2
 
-static const char **macroTable = (const char *[]){
+static const char *macroTable[] = {
   "/.1/.2/.3",
   "+~s/.P/.S/.P-~s"
 };
