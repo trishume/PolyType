@@ -22,7 +22,6 @@ void TeensyMatrixSource::update() {
     delay(2);
     for(int c=0; c<MAT_COLS; c++) {
       int val = !digitalRead(colPins[c]);
-      int matC = c;
       setState(r, c, val);
     }
   }
