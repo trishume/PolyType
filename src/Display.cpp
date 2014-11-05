@@ -3,6 +3,8 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_PCD8544.h>
 
+#include "Info.h"
+
 static Adafruit_PCD8544 theOnlyDisplay = Adafruit_PCD8544(14, 16, 15);
 const char *defaultHeader = "- PolyType -";
 
@@ -27,8 +29,8 @@ void Display::render() {
   display->clearDisplay();
   if(!sleeping) {
     display->println(header);
-    display->println("Version 0.4.0");
-    display->println("Codename Make");
+    display->println(VERSION_STR);
+    display->println(CODENAME_STR);
     if(layoutName != 0) {
       display->println("Layout:");
       display->println(layoutName);
