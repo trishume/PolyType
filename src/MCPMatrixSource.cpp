@@ -17,12 +17,12 @@ static byte read8 (byte mcpregister) {  // read 8 bits from MCP register;
   byte tempdata;
 
   Wire.beginTransmission(controlbyte);
-  Wire.send(mcpregister);
+  Wire.write(mcpregister);
   Wire.endTransmission();
 
   Wire.requestFrom(controlbyte,(byte)1);  // otherwise function gets one byte and one int & chokes
   while (Wire.available() < 1) { }
-  tempdata = Wire.receive();      // get lower 8 bytes
+  tempdata = Wire.read();      // get lower 8 bytes
   return tempdata;
 }
 
@@ -31,8 +31,8 @@ static void store8 (byte mcpregister, byte mcpdata)    // Store 8 bits in specif
   byte controlbyte  = B0100000;  // note that bit 0 not used b/c 7-bit opcode for Wire library
 
   Wire.beginTransmission(controlbyte);
-  Wire.send(mcpregister);
-  Wire.send(mcpdata);
+  Wire.write(mcpregister);
+  Wire.write(mcpdata);
   Wire.endTransmission();
 }
 

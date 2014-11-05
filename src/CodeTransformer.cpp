@@ -99,7 +99,7 @@ static const int specialKeyCodes[26] = {
 };
 
 void CodeTransformer::push(const KeyNameEvent &ev) {
-  if(out == NULL) return;
+  if(out == 0) return;
   int code = toCode(ev.group, ev.key);
   if(code == 0) return;
 

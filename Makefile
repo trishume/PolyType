@@ -11,10 +11,10 @@ TEENSY_CORE_SPEED = 72000000
 
 # Some libraries will require this to be defined
 # If you define this, you will break the default main.cpp
-#ARDUINO = 105
+ARDUINO = 105
 
 # configurable options
-OPTIONS = -DUSB_SERIAL -DLAYOUT_US_ENGLISH
+OPTIONS = -DUSB_SERIAL_HID -DLAYOUT_US_ENGLISH -DTEENSYDUINO=118 -DCORE_TEENSY
 
 # directory to build in
 BUILDDIR = $(abspath $(CURDIR)/build)
@@ -25,11 +25,14 @@ BUILDDIR = $(abspath $(CURDIR)/build)
 # locations and edit the pathnames.  The rest of Arduino is not needed.
 #************************************************************************
 
+# base teensyduino path
+ARDUINO_PATH = /Applications/Arduino.app/Contents/Resources/Java
+
 # path location for Teensy Loader, teensy_post_compile and teensy_reboot
-TOOLSPATH = $(CURDIR)/tools
+TOOLSPATH = $(ARDUINO_PATH)/hardware/tools
 
 # path location for Teensy 3 core
-COREPATH = teensy3
+COREPATH = $(ARDUINO_PATH)/hardware/teensy/cores/teensy3
 
 # path location for Arduino libraries
 LIBRARYPATH = libraries
@@ -42,7 +45,7 @@ COMPILERPATH = $(TOOLSPATH)/arm-none-eabi/bin
 #************************************************************************
 
 # CPPFLAGS = compiler options for C and C++
-CPPFLAGS = -Wall -g -Os -mcpu=cortex-m4 -mthumb -nostdlib -MMD $(OPTIONS) -DF_CPU=$(TEENSY_CORE_SPEED) -Isrc -I$(COREPATH)
+CPPFLAGS = -Wall -g -Os -mcpu=cortex-m4 -mthumb -nostdlib -MMD $(OPTIONS) -DF_CPU=$(TEENSY_CORE_SPEED) -Isrc -I$(COREPATH) -fdata-sections -ffunction-sections
 
 # compiler options for C++ only
 CXXFLAGS = -std=gnu++0x -felide-constructors -fno-exceptions -fno-rtti
@@ -91,7 +94,6 @@ INO_FILES := $(wildcard src/*.ino)
 
 # include paths for libraries
 L_INC := $(foreach lib,$(filter %/, $(wildcard $(LIBRARYPATH)/*/ $(LIBRARYPATH)/*/utility/)), -I$(lib))
-
 SOURCES := $(C_FILES:.c=.o) $(CPP_FILES:.cpp=.o) $(INO_FILES:.ino=.o) $(TC_FILES:.c=.o) $(TCPP_FILES:.cpp=.o) $(LC_FILES:.c=.o) $(LCPP_FILES:.cpp=.o)
 OBJS := $(foreach src,$(SOURCES), $(BUILDDIR)/$(src))
 

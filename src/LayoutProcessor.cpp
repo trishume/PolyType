@@ -38,10 +38,10 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
   }
 };
 
-LayoutProcessor::LayoutProcessor() : out(NULL), curLayout(0) {}
+LayoutProcessor::LayoutProcessor() : out(0), curLayout(0) {}
 
 void LayoutProcessor::push(const KeyMatrixEvent &ev) {
-  if(out == NULL) return;
+  if(out == 0) return;
 
   char group = layouts[curLayout][ev.row][ev.col*2];
   char key = layouts[curLayout][ev.row][ev.col*2+1];

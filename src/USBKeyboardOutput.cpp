@@ -1,5 +1,5 @@
 #include "USBKeyboardOutput.h"
-#include "usb_keyboard.h"
+#include <usb_keyboard.h>
 
 USBKeyboardOutput::USBKeyboardOutput() : changed(0), numDown(0) {
   for (int i = 0; i < MAX_KEYS_TRACK; ++i) {

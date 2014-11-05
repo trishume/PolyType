@@ -27,8 +27,8 @@ void Display::render() {
   display->clearDisplay();
   if(!sleeping) {
     display->println(header);
-    display->println("Version 0.3.0");
-    display->println("Codename Macr");
+    display->println("Version 0.4.0");
+    display->println("Codename Make");
     if(layoutName != 0) {
       display->println("Layout:");
       display->println(layoutName);
