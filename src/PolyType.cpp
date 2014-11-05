@@ -1,14 +1,12 @@
-/*
-  DigitalReadSerial
- Reads a digital input on pin 2, prints the result to the serial monitor
+// PolyType Firmware Main File
+// By Tristan Hume
 
- This example code is in the public domain.
- */
+#include <Arduino.h>
 
 #include <SPI.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_PCD8544.h>
-#include "Wire.h"
+#include <Wire.h>
 
 #include "Display.h"
 
