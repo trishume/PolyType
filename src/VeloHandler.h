@@ -15,6 +15,7 @@ class VeloHandler : public Pipe<ChordEvent>
   protected:
   void transcribe(velomap_t map, const char *order);
   void pushKey(char key);
+  velomap_t mapCombos(const velomap_t map, const velomap_t *combos, int numCombos);
 };
 
 
