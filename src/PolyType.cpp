@@ -16,6 +16,8 @@
 #include "LayoutProcessor.h"
 #include "MacroProcessor.h"
 #include "CodeTransformer.h"
+#include "ChordBundler.h"
+#include "VeloHandler.h"
 #include "SleepCounter.h"
 
 Display disp;
@@ -24,6 +26,8 @@ Display disp;
 TeensyMatrixSource teensySource;
 MCPMatrixSource mcpSource;
 LayoutProcessor layoutProc;
+ChordBundler chordBundler;
+VeloHandler veloHandler;
 MacroProcessor macroProc;
 CodeTransformer codeTrans;
 SleepCounter sleepCounter;
@@ -33,8 +37,11 @@ void connectPipeline() {
   teensySource.out = &layoutProc;
   mcpSource.out = &layoutProc;
 
-  layoutProc.out = &macroProc;
+  layoutProc.out = &chordBundler;
   layoutProc.disp = &disp;
+  chordBundler.out = &macroProc;
+  chordBundler.chordHandler = &veloHandler;
+  veloHandler.out = &codeTrans;
   macroProc.out = &codeTrans;
   codeTrans.out = &sleepCounter;
   sleepCounter.out = &usbOut;

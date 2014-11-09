@@ -29,4 +29,18 @@ struct KeyMatrixEvent : public BaseKeyEvent
   int col;
 };
 
+// Chording Fanciness
+
+// A bitmap where bits represent the corresponding letter of the alphabet
+typedef unsigned velomap_t;
+#define VMAP(c)  (1<<((c)-'A'))
+
+struct ChordEvent
+{
+  ChordEvent(velomap_t left, velomap_t right, velomap_t mods) : l(left), r(right), mod(mods) {};
+  velomap_t l;
+  velomap_t r;
+  velomap_t mod;
+};
+
 #endif

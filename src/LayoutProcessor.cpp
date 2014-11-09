@@ -1,7 +1,7 @@
 #include "LayoutProcessor.h"
 #include "usb_keyboard.h"
 
-#define NUM_LAYOUTS 3
+#define NUM_LAYOUTS 4
 #define LAYOUT_ROWS 6
 #define LAYOUT_COLS 14
 
@@ -10,7 +10,7 @@
 // ~x=escape, ~t=tab, ~p=play, ~l=left, ~r=right, ~u=up, ~d=down, ~b=backspace
 static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
   {
-    "~x>0.2.3.4.5.6.5.6.7.8.9>1_+",
+    "~x>0.2.3.4.5.6.5.6.7.8.9_d_+",
     ".].1.W.E.R.T~f~g.Y.U.I.O.0.\\",
     "~t.Q.S.D.F.G    .H.J.K.L.P.[",
     "~s.A.X.C.V.B~t.`.N.M.,...;.'",
@@ -19,7 +19,7 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
     "q;Soft Dvorak",
   },
   {
-    "____________________________",
+    "_________________________q__",
     ".=__.,...P.Y____.F.G.C.R____",
     "__.'.O.E.U.I    .D.H.T.N.L./",
     "__.A.Q.J.K.X____.B.M.W.V.S.-",
@@ -28,7 +28,16 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
     "d;Hard Dvorak",
   },
   {
-    "____________________________",
+    "_________________________q__",
+    "____[P[K[I________]O]K]P____",
+    "[Z[F[T[J[O[U    ]U]I]J]T]F]Z",
+    "[Z[S[C[R[E[A____]A]E]R]C]S]Z",
+    "[Z[F____[L[N[Y]Y]N]L____]F]Z",
+    "    [H  ~a~b~x~e. ~c    &N  ",
+    "p;VeloType",
+  },
+  {
+    "_________________________q__",
     "______~u____________.W______",
     "____~l~d~r__    __.A.S.D.___",
     "____________________________",
