@@ -3,6 +3,8 @@
 static const char *leftOrder  = "XZSBPGQCDTVWFJHKLMRNYAOEUI";
 static const char *rightOrder = "AOEUIVLMRWNGKCXBPHDSFTYZQJ";
 static const KeyNameEvent commitEvent('!','c',KeyDown);
+static const KeyNameEvent shiftDownEvent('~','s',KeyDown);
+static const KeyNameEvent shiftUpEvent('~','s',KeyUp);
 
 #define NUM_COMBOS 11
 static const velomap_t combos[NUM_COMBOS*2] = {
@@ -29,32 +31,64 @@ VeloHandler::VeloHandler() {
 }
 
 void VeloHandler::push(const ChordEvent &ev) {
+  // These are before the mapping because we want to be able to type the single char H
+  // without it being caps by using the alternate mapping.
+  if(ev.l == VMAP('H') && ev.r == 0) { // Capitalize
+    capNext = true;
+    return;
+  } else if(ev.l == VMAP('Z') && ev.l == VMAP('Z')) { // Back-stroke
+    // TODO handle repeat by remembering more than one stroke.
+    for(int i = 0; i < lastStroke; ++i)
+      pushKey('b', '~');
+    lastStroke = 1;
+    return;
+  }
+
   velomap_t left = mapCombos(ev.l, combos, NUM_COMBOS);
   velomap_t right = mapCombos(ev.r, combos, NUM_COMBOS);
-
   int totalDown = (numDown(left)+numDown(right));
+  lastStroke = 0;
+
   // insert space if the No-Space key isn't down
   bool doSpace = totalDown > 1;
   if(ev.mod & VMAP('N')) doSpace = !doSpace;
-  if(doSpace) pushKey(' ');
+  if(doSpace) {
+    pushKey(' ');
+    lastStroke += 1;
+  }
 
-  transcribe(left, leftOrder);
-  transcribe(right, rightOrder);
+  // Special word 'a' shortcut
+  if(left == VMAP('O') && right == VMAP('I')) {
+    left = VMAP('A');
+    right = 0;
+  }
+
+  lastStroke += transcribe(left, leftOrder, capNext);
+  lastStroke += transcribe(right, rightOrder, false);
+  capNext = false;
 }
 
-void VeloHandler::transcribe(velomap_t map, const char *order) {
+int VeloHandler::transcribe(velomap_t map, const char *order, bool cap) {
+  int count = 0;
+  if(cap) out->push(shiftDownEvent);
   while(*order != 0) {
     char c = *order;
     velomap_t mask = VMAP(c);
     if((map & mask) != 0) {
       pushKey(c);
+      count++;
+      if(cap) {
+        out->push(shiftUpEvent);
+        cap = false;
+      }
     }
     order++;
   }
+  return count;
 }
 
-void VeloHandler::pushKey(char key) {
-  KeyNameEvent ev('.',key,KeyDown);
+void VeloHandler::pushKey(char key, char group) {
+  KeyNameEvent ev(group,key,KeyDown);
   out->push(ev);
   out->push(commitEvent);
   ev.type = KeyUp;

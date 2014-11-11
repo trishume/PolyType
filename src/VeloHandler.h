@@ -13,9 +13,12 @@ class VeloHandler : public Pipe<ChordEvent>
 
   virtual void push(const ChordEvent &ev);
   protected:
-  void transcribe(velomap_t map, const char *order);
-  void pushKey(char key);
+  int transcribe(velomap_t map, const char *order, bool cap);
+  void pushKey(char key, char group = '.');
   velomap_t mapCombos(const velomap_t map, const velomap_t *combos, int numCombos);
+
+  bool capNext;
+  int lastStroke;
 };
 
 
