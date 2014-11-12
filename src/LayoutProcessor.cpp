@@ -29,11 +29,11 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
   },
   {
     "_________________________q__",
-    "____[P[K[I________]O]K]P____",
+    "__.,[P[K[I..____.,]O]K]P____",
     "[Z[F[T[J[O[U    ]U]I]J]T]F]Z",
     "[Z[S[C[R[E[A____]A]E]R]C]S]Z",
     "[Z[F____[L[N[Y]Y]N]L____]F]Z",
-    "    [H  ~a~b~x~e. ~c    &N  ",
+    "    [H  ~a~b~x~e. ~s    &N  ",
     "p;VeloType",
   },
   {

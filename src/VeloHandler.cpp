@@ -34,7 +34,7 @@ void VeloHandler::push(const ChordEvent &ev) {
   // These are before the mapping because we want to be able to type the single char H
   // without it being caps by using the alternate mapping.
   if(ev.l == VMAP('H') && ev.r == 0) { // Capitalize
-    capNext = true;
+    capNext = !capNext;
     return;
   } else if(ev.l == VMAP('Z') && ev.l == VMAP('Z')) { // Back-stroke
     // TODO handle repeat by remembering more than one stroke.
@@ -63,23 +63,22 @@ void VeloHandler::push(const ChordEvent &ev) {
     right = 0;
   }
 
-  lastStroke += transcribe(left, leftOrder, capNext);
-  lastStroke += transcribe(right, rightOrder, false);
-  capNext = false;
+  lastStroke += transcribe(left, leftOrder);
+  lastStroke += transcribe(right, rightOrder);
 }
 
-int VeloHandler::transcribe(velomap_t map, const char *order, bool cap) {
+int VeloHandler::transcribe(velomap_t map, const char *order) {
   int count = 0;
-  if(cap) out->push(shiftDownEvent);
   while(*order != 0) {
     char c = *order;
     velomap_t mask = VMAP(c);
     if((map & mask) != 0) {
+      if(capNext) out->push(shiftDownEvent);
       pushKey(c);
       count++;
-      if(cap) {
+      if(capNext) {
         out->push(shiftUpEvent);
-        cap = false;
+        capNext = false;
       }
     }
     order++;
