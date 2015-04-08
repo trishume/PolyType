@@ -50,6 +50,7 @@ void MCPMatrixSource::start() {
 }
 
 void MCPMatrixSource::update() {
+  start();
   for(int r=0; r<MAT_ROWS; r++) {
     store8(GPIOB, 0xFF & ~(1<<r));
     byte in = read8(GPIOA);
