@@ -10,7 +10,7 @@
 // ~x=escape, ~t=tab, ~p=play, ~l=left, ~r=right, ~u=up, ~d=down, ~b=backspace
 static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
   {
-    "~x>0.2.3.4.5.6.5.6.7.8.9_d_+",
+    "!r>0.2.3.4.5.6.5.6.7.8.9_d_+",
     ".].1.W.E.R.T~f~g.Y.U.I.O.0.\\",
     "~t.Q.S.D.F.G    .H.J.K.L.P.[",
     "~s.A.X.C.V.B~t.`.N.M.,...;.'",

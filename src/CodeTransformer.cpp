@@ -1,6 +1,10 @@
 #include "CodeTransformer.h"
 #include "usb_keyboard.h"
 
+#define CPU_RESTART_ADDR (uint32_t *)0xE000ED0C
+#define CPU_RESTART_VAL 0x5FA0004
+#define CPU_RESTART (*CPU_RESTART_ADDR = CPU_RESTART_VAL);
+
 static const int asciiKeyCodes[65] = {
   KEY_SPACE, //
   0, // !
@@ -117,6 +121,9 @@ int CodeTransformer::toCode(char group, char key) {
     return specialKeyCodes[key-'a'];
   case '!':
     if(key == 'c') return -1; // commit
+    if(key == 'r') {
+      CPU_RESTART
+    }
     return 0;
   }
   return 0; // unknown type
