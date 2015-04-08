@@ -14,8 +14,8 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
     ".].1.W.E.R.T~f~g.Y.U.I.O.0.\\",
     "~t.Q.S.D.F.G    .H.J.K.L.P.[",
     "~s.A.X.C.V.B~t.`.N.M.,...;.'",
-    "~s.Z~l~r~a~b~x~e. ~c~u~d./~s",
-    "    ~s  ~o~p~j~k.-.=    ~h  ",
+    "~s.Z~l~r~a~b~x~e. ~h~u~d./~s",
+    "    ~s  ~o~p~j~k.-.=    ~c  ",
     "q;Soft Dvorak",
   },
   {
@@ -29,7 +29,7 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
   },
   {
     "_________________________q__",
-    "__.,[P[K[I..____.,]O]K]P____",
+    "__.-[P[K[I..____.,]O]K]P.'__",
     "[Z[F[T[J[O[U    ]U]I]J]T]F]Z",
     "[Z[S[C[R[E[A____]A]E]R]C]S]Z",
     "[Z[F____[L[N[Y]Y]N]L____]F]Z",
@@ -38,12 +38,12 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
   },
   {
     "_________________________q__",
-    "______~u____________.W______",
-    "____~l~d~r__    __.A.S.D.___",
+    "______.W____________~u______",
+    "____.A.S.D__    __~l~d~r___",
     "____________________________",
     "____________________________",
     "    __  ____________    __  ",
-    "a;ARROWS+WASD",
+    "a;WASD+ARROWS",
   }
 };
 

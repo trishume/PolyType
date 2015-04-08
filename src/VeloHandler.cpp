@@ -6,7 +6,7 @@ static const KeyNameEvent commitEvent('!','c',KeyDown);
 static const KeyNameEvent shiftDownEvent('~','s',KeyDown);
 static const KeyNameEvent shiftUpEvent('~','s',KeyUp);
 
-#define NUM_COMBOS 11
+#define NUM_COMBOS 10
 static const velomap_t combos[NUM_COMBOS*2] = {
   VMAP('P')|VMAP('J'), VMAP('B'),
   VMAP('T')|VMAP('J'), VMAP('D'),
@@ -16,7 +16,7 @@ static const velomap_t combos[NUM_COMBOS*2] = {
   VMAP('F')|VMAP('C'), VMAP('Q'),
   VMAP('L')|VMAP('R'), VMAP('V'),
   VMAP('F')|VMAP('J'), VMAP('V'),
-  VMAP('H')|VMAP('J'), VMAP('W'),
+  // VMAP('H')|VMAP('J'), VMAP('W'),
   VMAP('N')|VMAP('J'), VMAP('W'),
   VMAP('Z')|VMAP('K'), VMAP('X'),
 };
