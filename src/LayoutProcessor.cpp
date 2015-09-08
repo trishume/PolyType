@@ -15,7 +15,7 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
     "~t.Q.S.D.F.G    .H.J.K.L.P.[",
     "~s.A.X.C.V.B~t.`.N.M.,...;.'",
     "~s.Z~l~r~a~b~x~e. ~h~u~d./~s",
-    "    ~s  ~o~p~j~k.-.=    ~c  ",
+    "    ~s  ~of5~j~k.-.=    ~c  ",
     "q;Soft Dvorak",
   },
   {
@@ -37,9 +37,9 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
     "p;VeloType",
   },
   {
-    "_________________________q__",
-    "______.W____________~u______",
-    "____.A.S.D__    __~l~d~r___",
+    "____f2f3f4f5f6f5f6f7f8f9_q__",
+    "__f1__.W____________~u__f0__",
+    "____.A.S.D__    __~l~d~r____",
     "____________________________",
     "____________________________",
     "    __  ____________    __  ",

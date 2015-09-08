@@ -102,6 +102,19 @@ static const int specialKeyCodes[26] = {
   0, // z
 };
 
+static const int fnKeyCodes[10] = {
+  KEY_F10,
+  KEY_F1,
+  KEY_F2,
+  KEY_F3,
+  KEY_F4,
+  KEY_F5,
+  KEY_F6,
+  KEY_F7,
+  KEY_F8,
+  KEY_F9,
+};
+
 void CodeTransformer::push(const KeyNameEvent &ev) {
   if(out == 0) return;
   int code = toCode(ev.group, ev.key);
@@ -119,6 +132,9 @@ int CodeTransformer::toCode(char group, char key) {
   case '~':
     if(key < 'a' || key > 'z') return 0; // bad layout
     return specialKeyCodes[key-'a'];
+  case 'f':
+    if(key < '0' || key > '9') return 0; // bad layout
+    return fnKeyCodes[key-'0'];
   case '!':
     if(key == 'c') return -1; // commit
     if(key == 'r') {
