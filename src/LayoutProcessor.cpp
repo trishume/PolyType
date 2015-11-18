@@ -10,12 +10,12 @@
 // ~x=escape, ~t=tab, ~p=play, ~l=left, ~r=right, ~u=up, ~d=down, ~b=backspace
 static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
   {
-    "!r>0.2.3.4.5.6.5.6.7.8.9_d_+",
+    "f4>0.2.3.4.5.6.5.6.7.8.9_d_+",
     ".].1.W.E.R.T~f~g.Y.U.I.O.0.\\",
     "~t.Q.S.D.F.G    .H.J.K.L.P.[",
     "~s.A.X.C.V.B~t.`.N.M.,...;.'",
     "~s.Z~l~r~a~b~x~e. ~h~u~d./~s",
-    "    ~s  ~of5~j~k.-.=    ~c  ",
+    "    ~a  ~of5~j~k.-.=    ~c  ",
     "q;Soft Dvorak",
   },
   {
@@ -37,7 +37,7 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
     "p;VeloType",
   },
   {
-    "____f2f3f4f5f6f5f6f7f8f9_q__",
+    "!r__f2f3f4f5f6f5f6f7f8f9_q__",
     "__f1__.W____________~u__f0__",
     "____.A.S.D__    __~l~d~r____",
     "____________________________",
