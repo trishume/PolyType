@@ -15,7 +15,7 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
     "~t.Q.S.D.F.G    .H.J.K.L.P.[",
     "~s.A.X.C.V.B~t.`.N.M.,...;.'",
     "~s.Z~l~r~a~b~x~e. ~h~u~d./~s",
-    "    ~a  ~of5~j~k.-.=    ~c  ",
+    "    ~s  ~o~p~j~k.-.=    ~c  ",
     "q;Soft Dvorak",
   },
   {
