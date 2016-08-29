@@ -1,2 +1,2 @@
-#define VERSION_STR "Version 0.5.4"
-#define CODENAME_STR "Codename Velo"
+#define VERSION_STR "Version 0.6.0"
+#define CODENAME_STR "Codename LEDs"
