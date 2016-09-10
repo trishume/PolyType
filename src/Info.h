@@ -1,2 +1,2 @@
-#define VERSION_STR "Version 0.6.0"
-#define CODENAME_STR "Codename LEDs"
+#define VERSION_STR "Version 0.6.1"
+#define CODENAME_STR "Codename Star"
