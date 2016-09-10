@@ -9,6 +9,7 @@
 #define LED_PIN   12
 #define NUMPIXELS  6
 #define PIX_PER_SIDE 3
+#define NUM_MODES 3
 
 static const uint8_t kMinBrightness = 30;
 static const uint8_t kMaxBrightness = 70;
@@ -31,7 +32,7 @@ static uint32_t colorWheel(uint8_t wheelPos) {
   return Adafruit_NeoPixel::Color(wheelPos * 3, 255 - wheelPos * 3, 0);
 }
 
-Display::Display() : dirty(true), layoutName(0), lastLightUpdate(0) {
+Display::Display() : dirty(true), layoutName(0), lastLightUpdate(0), modeNum(0) {
   display = &theOnlyDisplay;
   header = defaultHeader;
 }
@@ -51,8 +52,9 @@ void Display::render(bool pressedThisTick) {
   unsigned long t = millis();
   if(pressedThisTick) lastKeyPress = t;
   unsigned long timeSinceUpdate = t - lastLightUpdate;
+  unsigned long timeBetweenUpdates = (modeNum == 0) ? 4000 : 30;
 
-  if(!sleeping && timeSinceUpdate > 20) {
+  if(!sleeping && timeSinceUpdate > timeBetweenUpdates) {
     renderLights(t);
     lastLightUpdate = t;
   }
@@ -84,6 +86,11 @@ void Display::setLayoutName(const char *name) {
   dirty = 1;
 }
 
+void Display::cycleMode() {
+  modeNum = (modeNum + 1) % NUM_MODES;
+  renderLights(millis());
+}
+
 void Display::renderLights(unsigned long t) {
   if(sleeping) {
     for(int i = 0; i < NUMPIXELS; i++) {
@@ -100,11 +107,16 @@ void Display::renderLights(unsigned long t) {
     pixels.setBrightness(kMaxBrightness-keyFade);
   }
 
-  unsigned long wheelPos = t >> 5;
-
   uint32_t side[PIX_PER_SIDE];
+  unsigned long wheelPos = t >> 5;
   for(unsigned i = 0; i < PIX_PER_SIDE; ++i) {
-    side[i] = colorWheel((wheelPos+(i*12)) % 256);
+    if(modeNum == 0) {
+      side[i] = Adafruit_NeoPixel::Color(0,0,0);
+    } else if(modeNum == 1) {
+      side[i] = Adafruit_NeoPixel::Color(0,0,100);
+    } else {
+      side[i] = colorWheel((wheelPos+(i*12)) % 256);
+    }
   }
 
   for(int i = 0; i < PIX_PER_SIDE; i++) {

@@ -13,6 +13,8 @@ public:
   void setSleeping(bool sleep);
   void setLayoutName(const char *name);
 
+  void cycleMode();
+
 protected:
   Adafruit_PCD8544 *display;
   bool dirty;
@@ -21,6 +23,8 @@ protected:
   const char *layoutName;
   unsigned long lastLightUpdate;
   unsigned long lastKeyPress;
+
+  int modeNum;
 
   void renderLights(unsigned long t);
 };
