@@ -2,9 +2,14 @@
 
 #include <Adafruit_GFX.h>
 #include <Adafruit_PCD8544.h>
+#include <Adafruit_NeoPixel.h>
 
 #include "Info.h"
 
+#define LED_PIN   12
+#define NUMPIXELS  6
+
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, LED_PIN, NEO_GRB + NEO_KHZ800);
 static Adafruit_PCD8544 theOnlyDisplay = Adafruit_PCD8544(14, 16, 15);
 const char *defaultHeader = "- PolyType -";
 
@@ -20,6 +25,8 @@ void Display::setup() {
   display->setTextSize(1);
   display->setTextColor(BLACK);
   display->setCursor(0,0);
+  pixels.begin();
+  // pinMode(LED_PIN, OUTPUT);
 }
 
 void Display::render() {
@@ -28,6 +35,11 @@ void Display::render() {
 
   display->clearDisplay();
   if(!sleeping) {
+    for(int i = 0; i < NUMPIXELS; i++) {
+      pixels.setPixelColor(i, pixels.Color(0,0,30));
+    }
+    pixels.show();
+
     display->println(header);
     display->println(VERSION_STR);
     display->println(CODENAME_STR);
@@ -35,6 +47,11 @@ void Display::render() {
       display->println("Layout:");
       display->println(layoutName);
     }
+  } else {
+    for(int i = 0; i < NUMPIXELS; i++) {
+      pixels.setPixelColor(i, pixels.Color(0,0,0));
+    }
+    pixels.show();
   }
   display->display();
 }
