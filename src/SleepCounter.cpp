@@ -1,7 +1,5 @@
 #include "SleepCounter.h"
 
-#define SLEEP_COUNT 2000
-
 SleepCounter::SleepCounter() : countDown(SLEEP_COUNT) {
 
 }
@@ -11,7 +9,7 @@ void SleepCounter::kick() {
 }
 
 void SleepCounter::push(const KeyCodeEvent &ev) {
-  kick();
+  if(ev.type == KeyDown) kick();
   out->push(ev);
 }
 

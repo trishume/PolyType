@@ -1,19 +1,37 @@
 #include "Display.h"
+#include "Info.h"
 
+#include <Arduino.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_PCD8544.h>
 #include <Adafruit_NeoPixel.h>
 
-#include "Info.h"
-
 #define LED_PIN   12
 #define NUMPIXELS  6
+#define PIX_PER_SIDE 3
 
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, LED_PIN, NEO_GRB + NEO_KHZ800);
+static const uint8_t kMinBrightness = 30;
+static const uint8_t kMaxBrightness = 70;
+static const uint8_t kBrightnessRange = kMaxBrightness - kMinBrightness;
+
+static Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, LED_PIN, NEO_GRB + NEO_KHZ800);
 static Adafruit_PCD8544 theOnlyDisplay = Adafruit_PCD8544(14, 16, 15);
 const char *defaultHeader = "- PolyType -";
 
-Display::Display() : dirty(true), layoutName(0) {
+static uint32_t colorWheel(uint8_t wheelPos) {
+  wheelPos = 255 - wheelPos;
+  if(wheelPos < 85) {
+    return Adafruit_NeoPixel::Color(255 - wheelPos * 3, 0, wheelPos * 3);
+  }
+  if(wheelPos < 170) {
+    wheelPos -= 85;
+    return Adafruit_NeoPixel::Color(0, wheelPos * 3, 255 - wheelPos * 3);
+  }
+  wheelPos -= 170;
+  return Adafruit_NeoPixel::Color(wheelPos * 3, 255 - wheelPos * 3, 0);
+}
+
+Display::Display() : dirty(true), layoutName(0), lastLightUpdate(0) {
   display = &theOnlyDisplay;
   header = defaultHeader;
 }
@@ -29,17 +47,21 @@ void Display::setup() {
   // pinMode(LED_PIN, OUTPUT);
 }
 
-void Display::render() {
+void Display::render(bool pressedThisTick) {
+  unsigned long t = millis();
+  if(pressedThisTick) lastKeyPress = t;
+  unsigned long timeSinceUpdate = t - lastLightUpdate;
+
+  if(!sleeping && timeSinceUpdate > 20) {
+    renderLights(t);
+    lastLightUpdate = t;
+  }
+
   if(dirty == 0) return;
   dirty = 0;
 
   display->clearDisplay();
   if(!sleeping) {
-    for(int i = 0; i < NUMPIXELS; i++) {
-      pixels.setPixelColor(i, pixels.Color(0,0,30));
-    }
-    pixels.show();
-
     display->println(header);
     display->println(VERSION_STR);
     display->println(CODENAME_STR);
@@ -47,11 +69,6 @@ void Display::render() {
       display->println("Layout:");
       display->println(layoutName);
     }
-  } else {
-    for(int i = 0; i < NUMPIXELS; i++) {
-      pixels.setPixelColor(i, pixels.Color(0,0,0));
-    }
-    pixels.show();
   }
   display->display();
 }
@@ -59,9 +76,40 @@ void Display::render() {
 void Display::setSleeping(bool state) {
   sleeping = state;
   dirty = 1;
+  renderLights(millis());
 }
 
 void Display::setLayoutName(const char *name) {
   layoutName = name;
   dirty = 1;
+}
+
+void Display::renderLights(unsigned long t) {
+  if(sleeping) {
+    for(int i = 0; i < NUMPIXELS; i++) {
+      pixels.setPixelColor(i, pixels.Color(0,0,0));
+    }
+    pixels.show();
+    return;
+  }
+
+  unsigned long keyFade = (t - lastKeyPress)>>4;
+  if(keyFade >= kBrightnessRange) {
+    pixels.setBrightness(kMinBrightness);
+  } else {
+    pixels.setBrightness(kMaxBrightness-keyFade);
+  }
+
+  unsigned long wheelPos = t >> 5;
+
+  uint32_t side[PIX_PER_SIDE];
+  for(unsigned i = 0; i < PIX_PER_SIDE; ++i) {
+    side[i] = colorWheel((wheelPos+(i*12)) % 256);
+  }
+
+  for(int i = 0; i < PIX_PER_SIDE; i++) {
+    pixels.setPixelColor(i, side[i]);
+    pixels.setPixelColor(NUMPIXELS-i, side[i]);
+  }
+  pixels.show();
 }

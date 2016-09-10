@@ -58,7 +58,7 @@ void setup() {
   connectPipeline();
 
   layoutProc.setLayout(0);
-  disp.render();
+  disp.render(false);
 }
 
 // the loop routine runs over and over again forever:
@@ -74,7 +74,7 @@ void loop() {
   } else if(sleepCounter.justWoke()) {
     disp.setSleeping(false);
   }
-  disp.render();
+  disp.render(sleepCounter.pressedThisTick());
   // TODO add kicker pipeline step so this can be reenabled
   // if(sleepCounter > 0) sleepCounter--;
   sleepCounter.tick();
