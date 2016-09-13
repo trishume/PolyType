@@ -14,9 +14,9 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
     ".].1.W.E.R.T~f~g.Y.U.I.O.0.\\",
     "~t.Q.S.D.F.G    .H.J.K.L.P.[",
     "~s.A.X.C.V.B~t.`.N.M.,...;.'",
-    "~s.Z~l~r~a~b~x~e. ~h~u~d./~s",
+    "~s.Z~l~r~c~b~x~e. ~a~u~d./~s",
     "    ~s  ~o~p~j~k.-.=    ~c  ",
-    "q;Soft Dvorak",
+    "q;Linux Soft",
   },
   {
     "_________________________q__",
@@ -28,14 +28,23 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
     "d;Hard Dvorak",
   },
   {
-    "_________________________q__",
-    "__.-[P[K[I..____.,]O]K]P.'__",
-    "[Z[F[T[J[O[U    ]U]I]J]T]F]Z",
-    "[Z[S[C[R[E[A____]A]E]R]C]S]Z",
-    "[Z[F____[L[N[Y]Y]N]L____]F]Z",
-    "    [H  ~a~b~x~e. ~s    &N  ",
-    "p;VeloType",
+    "f4>0.2.3.4.5.6.5.6.7.8.9_*_+",
+    ".].1.W.E.R.T~f~g.Y.U.I.O.0.\\",
+    "~t.Q.S.D.F.G    .H.J.K.L.P.[",
+    "~s.A.X.C.V.B~t.`.N.M.,...;.'",
+    "~s.Z~l~r~a~b~x~e. ~h~u~d./~s",
+    "    ~s  ~o~p~j~k.-.=    ~c  ",
+    "z;Soft Dvorak",
   },
+  // {
+  //   "_________________________q__",
+  //   "__.-[P[K[I..____.,]O]K]P.'__",
+  //   "[Z[F[T[J[O[U    ]U]I]J]T]F]Z",
+  //   "[Z[S[C[R[E[A____]A]E]R]C]S]Z",
+  //   "[Z[F____[L[N[Y]Y]N]L____]F]Z",
+  //   "    [H  ~a~b~x~e. ~s    &N  ",
+  //   "p;VeloType",
+  // },
   {
     "!r__f2f3f4f5f6f5f6f7f8f9_q__",
     "__f1__.W____________~u__f0__",
@@ -44,7 +53,7 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
     "____________________________",
     "    .   ____________    __  ",
     "a;WASD+ARROWS",
-  }
+  },
 };
 
 LayoutProcessor::LayoutProcessor() : out(0), curLayout(0) {}
