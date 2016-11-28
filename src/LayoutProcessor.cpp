@@ -15,7 +15,7 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
     "~t.Q.S.D.F.G    .H.J.K.L.P.[",
     "~s.A.X.C.V.B~t.`.N.M.,...;.'",
     "~s.Z~l~r~c~b~x~e. ~a~u~d./~s",
-    "    ~s  ~o~p~j~k.-.=    ~c  ",
+    "    ~s  ~o~p~j^a.-.=    ~c  ",
     "q;Linux Soft",
   },
   {
@@ -56,7 +56,7 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
   },
 };
 
-LayoutProcessor::LayoutProcessor() : out(0), curLayout(0) {}
+LayoutProcessor::LayoutProcessor() : out(0), curLayout(0), prevLayout(0) {}
 
 void LayoutProcessor::push(const KeyMatrixEvent &ev) {
   if(out == 0) return;
@@ -68,8 +68,11 @@ void LayoutProcessor::push(const KeyMatrixEvent &ev) {
     group = layouts[0][ev.row][ev.col*2];
     key = layouts[0][ev.row][ev.col*2+1];
   }
-  if(group == '_' && ev.type == KeyDown) { // handle layout control keys here
+  if((group == '_' || group == '^') && ev.type == KeyDown) { // handle layout control keys here
     layoutControl(key);
+    return;
+  } else if(group == '^' && ev.type == KeyUp) {
+    setLayout(prevLayout);
     return;
   }
 
@@ -79,6 +82,7 @@ void LayoutProcessor::push(const KeyMatrixEvent &ev) {
 }
 
 void LayoutProcessor::setLayout(int num) {
+  prevLayout = curLayout;
   num = num % NUM_LAYOUTS;
   curLayout = num;
   if(disp) {

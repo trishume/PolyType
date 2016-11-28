@@ -17,6 +17,7 @@ public:
   void setLayout(int layoutNum);
 protected:
   int curLayout;
+  int prevLayout;
 
   void layoutControl(char key);
 };
