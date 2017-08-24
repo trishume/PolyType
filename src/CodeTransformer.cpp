@@ -82,7 +82,7 @@ static const int specialKeyCodes[26] = {
   KEY_HOME, // f
   KEY_END, // g
   MODIFIERKEY_CTRL | MODIFIERKEY_GUI | MODIFIERKEY_ALT | MODIFIERKEY_SHIFT, // h
-  0, // i
+  KEY_CAPS_LOCK, // i
   KEY_PAGE_DOWN, // j
   KEY_PAGE_UP, // k
   KEY_LEFT, // l

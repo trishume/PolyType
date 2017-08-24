@@ -1,12 +1,12 @@
 #include "LayoutProcessor.h"
 #include "usb_keyboard.h"
 
-#define NUM_LAYOUTS 5
+#define NUM_LAYOUTS 4
 #define LAYOUT_ROWS 6
 #define LAYOUT_COLS 14
 
 // 29 because 14 keys * 2 chars + 1 null term, 7 because 6 cols + name
-// ~e=enter, ~s=shift, ~a=command, ~o=option, ~c=control, ~h=hyper,
+// ~e=enter, ~s=shift, ~a=command, ~o=option, ~c=control, ~h=hyper, ~i=caplock
 // ~x=escape, ~t=tab, ~p=play, ~l=left, ~r=right, ~u=up, ~d=down, ~b=backspace
 static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
   {
@@ -14,19 +14,10 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
     ".].1.W.E.R.T~f~g.Y.U.I.O.0.\\",
     "~t.Q.S.D.F.G    .H.J.K.L.P.[",
     "~s.A.X.C.V.B~t.`.N.M.,...;.'",
-    "~s.Z~l~r~a~b~x~e. ~h~u~d./~s",
+    "~s.Z~l~r~a~b~x~e. ~i~u~d./~s",
     "    ~s  ~o~p~j^a.-.=    ~c  ",
     "q;Soft Dvorak",
   },
-  // {
-  //   "f4>0.2.3.4.5.6.5.6.7.8.9_*_+",
-  //   ".].1.W.E.R.T~f~g.Y.U.I.O.0.\\",
-  //   "~t.Q.S.D.F.G    .H.J.K.L.P.[",
-  //   "~s.A.X.C.V.B~t.`.N.M.,...;.'",
-  //   "~s.Z~l~r~c~b~x~e. ~a~u~d./~s",
-  //   "    ~s  ~o~p~j^a.-.=    ~c  ",
-  //   "q;Linux Soft",
-  // },
   {
     "_________________________q__",
     ".=__.,...P.Y____.F.G.C.R____",
@@ -37,6 +28,15 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
     "d;Hard Dvorak",
   },
   // {
+  //   "f4>0.2.3.4.5.6.5.6.7.8.9_*_+",
+  //   ".].1.W.E.R.T~f~g.Y.U.I.O.0.\\",
+  //   "~t.Q.S.D.F.G    .H.J.K.L.P.[",
+  //   "~s.A.X.C.V.B~t.`.N.M.,...;.'",
+  //   "~s.Z~l~r~c~b~x~e. ~a~u~d./~s",
+  //   "    ~s  ~o~p~j^a.-.=    ~c  ",
+  //   "l;Linux Soft",
+  // },
+  // {
   //   "_________________________q__",
   //   "____________________________",
   //   "____________    ____________",
@@ -45,15 +45,15 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
   //   "    __  ____________    __  ",
   //   "s;SubLin Soft",
   // },
-  // {
-  //   "_________________________q__",
-  //   "____________________________",
-  //   "____________    ____________",
-  //   "____________________________",
-  //   "____________________________",
-  //   "    __  ____________    ~o  ",
-  //   "s;SubLin Soft",
-  // },
+  {
+    "_________________________q__",
+    "____________________________",
+    "____________    ____________",
+    "____________________________",
+    "________~c________~a________",
+    "    __  ____________    ~o  ",
+    "s;SubLin Soft",
+  },
   // {
   //   "_________________________q__",
   //   "__.-[P[K[I..____.,]O]K]P.'__",
