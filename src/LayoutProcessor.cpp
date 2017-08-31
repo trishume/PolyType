@@ -1,7 +1,7 @@
 #include "LayoutProcessor.h"
 #include "usb_keyboard.h"
 
-#define NUM_LAYOUTS 4
+#define NUM_LAYOUTS 5
 #define LAYOUT_ROWS 6
 #define LAYOUT_COLS 14
 
@@ -71,6 +71,15 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
     "____________________________",
     "    .   ____________    __  ",
     "a;WASD+ARROWS",
+  },
+  {
+    "!!!!!!!!!!!!!!!!!!!!!!!!!!_q",
+    "!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+    "!!!!!!!!!!!!    !!!!!!!!!!!!",
+    "!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+    "!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+    "    !!  !!!!!!!!!!!!    !!  ",
+    "c;Cleaning",
   },
 };
 

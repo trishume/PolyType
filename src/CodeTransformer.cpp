@@ -140,6 +140,7 @@ int CodeTransformer::toCode(char group, char key) {
     if(key == 'r') {
       CPU_RESTART
     }
+    if(key == '!') return 0; // ignore key (perhaps for cleaning)
     return 0;
   }
   return 0; // unknown type
