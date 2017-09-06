@@ -7,7 +7,7 @@
 
 // 29 because 14 keys * 2 chars + 1 null term, 7 because 6 cols + name
 // ~e=enter, ~s=shift, ~a=command, ~o=option, ~c=control, ~h=hyper, ~i=caplock
-// ~x=escape, ~t=tab, ~p=play, ~l=left, ~r=right, ~u=up, ~d=down, ~b=backspace
+// ~x=escape, ~t=tab, ~p=play, ~l=left, ~r=right, ~u=up, ~d=down, ~b=backspace, ~n=f10
 static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
   {
     "f4>0.2.3.4.5.6.5.6.7.8.9_*_+",
@@ -15,7 +15,7 @@ static const char layouts[NUM_LAYOUTS][LAYOUT_ROWS+1][LAYOUT_COLS*2+1] = {
     "~t.Q.S.D.F.G    .H.J.K.L.P.[",
     "~s.A.X.C.V.B~t.`.N.M.,...;.'",
     "~s.Z~l~r~a~b~x~e. ~i~u~d./~s",
-    "    ~s  ~o~p~j^a.-.=    ~c  ",
+    "    ~s  ~o~n~j^a.-.=    ~c  ",
     "q;Soft Dvorak",
   },
   {

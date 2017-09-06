@@ -87,7 +87,7 @@ static const int specialKeyCodes[26] = {
   KEY_PAGE_UP, // k
   KEY_LEFT, // l
   0, // m
-  0, // n
+  KEY_F10, // n
   MODIFIERKEY_ALT, // o
   KEY_MEDIA_PLAY_PAUSE, // p
   0, // q
