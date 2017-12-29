@@ -33,6 +33,8 @@ CodeTransformer codeTrans;
 SleepCounter sleepCounter;
 USBKeyboardOutput usbOut;
 
+unsigned long lastTick;
+
 void connectPipeline() {
   teensySource.out = &layoutProc;
   mcpSource.out = &layoutProc;
@@ -59,6 +61,8 @@ void setup() {
 
   layoutProc.setLayout(0);
   disp.render(false);
+
+  lastTick = micros();
 }
 
 // the loop routine runs over and over again forever:
@@ -77,7 +81,13 @@ void loop() {
   disp.render(sleepCounter.pressedThisTick());
   // TODO add kicker pipeline step so this can be reenabled
   // if(sleepCounter > 0) sleepCounter--;
-  sleepCounter.tick();
 
-  delay(10);        // delay in between reads for stability
+  // unsigned long now = micros();
+  // unsigned long delta = now - lastTick;
+  // lastTick = now;
+  // if(sleepCounter.pressedThisTick()) {
+  //   Serial.println(delta);
+  // }
+
+  sleepCounter.tick();
 }

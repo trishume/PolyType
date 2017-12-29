@@ -19,7 +19,11 @@ void TeensyMatrixSource::update() {
     }
     pinMode(rowPins[r],OUTPUT);
     digitalWrite(rowPins[r],LOW);
-    delay(2);
+
+    // This used to be a 2ms delay, but it still worked when that
+    // delay was eliminated. This delay is kept for safety.
+    delayMicroseconds(5);
+
     for(int c=0; c<MAT_COLS; c++) {
       int val = !digitalRead(colPins[c]);
       setState(r, c, val);

@@ -76,8 +76,9 @@ void Display::render(bool pressedThisTick) {
 }
 
 void Display::setSleeping(bool state) {
-  sleeping = state;
+  if(state == sleeping) return;
   dirty = 1;
+  sleeping = state;
   renderLights(millis());
 }
 
