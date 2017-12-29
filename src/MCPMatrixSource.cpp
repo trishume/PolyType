@@ -50,7 +50,8 @@ void MCPMatrixSource::start() {
 }
 
 void MCPMatrixSource::update() {
-  start();
+  // TODO maybe reset once in N scans, like every second
+  // start();
   for(int r=0; r<MAT_ROWS; r++) {
     store8(GPIOB, 0xFF & ~(1<<r));
     byte in = read8(GPIOA);

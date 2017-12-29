@@ -1,1 +1,1 @@
-#define VERSION_STR "v0.7.0: Snap"
+#define VERSION_STR "v0.7.1: Snap"
