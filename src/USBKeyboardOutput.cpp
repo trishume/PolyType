@@ -1,5 +1,6 @@
 #include "USBKeyboardOutput.h"
 #include <usb_keyboard.h>
+#include <Arduino.h>
 
 USBKeyboardOutput::USBKeyboardOutput() : changed(0), numDown(0) {
   for (int i = 0; i < MAX_KEYS_TRACK; ++i) {
@@ -36,22 +37,28 @@ void USBKeyboardOutput::commit() {
   if(!changed) return;
   // init special exported variables
   keyboard_modifier_keys = 0;
-  keyboard_media_keys = 0;
   for(int i = 0; i < 6; ++i)
     keyboard_keys[i] = 0;
 
   int normalKeysUsed = 0;
+  uint16_t mediaKey = 0;
   for (int i = 0; i < numDown; ++i) {
     int code = keysDown[i];
-    if((code & 0x8000) == 0x8000) {
+    uint8_t msb = code >> 8;
+    if(msb == 0xE0) {
       keyboard_modifier_keys = (keyboard_modifier_keys | code);
-    } else if(code > 0 && code <= 0x80) { // media key range
-      keyboard_media_keys = code;
-    } else if(normalKeysUsed < 6) {
-      keyboard_keys[normalKeysUsed] = code;
-      normalKeysUsed++;
+    } else if(msb == 0xE2 || (msb >= 0xE4 && msb <= 0xE7)) { // media key range
+      mediaKey = code;
+    } else if(msb == 0xF0) {
+      if(normalKeysUsed < 6) {
+        keyboard_keys[normalKeysUsed] = code;
+        normalKeysUsed++;
+      }
+    } else {
+      Serial.println("bad code");
     }
   }
+  Keyboard.set_media(mediaKey);
 
   usb_keyboard_send();
   changed = 0;

@@ -6,7 +6,7 @@
 #include <SPI.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_PCD8544.h>
-#include <Wire.h>
+#include <i2c_t3.h>
 
 #include "Display.h"
 
@@ -53,7 +53,8 @@ void setup() {
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
   disp.setup();
-  Wire.begin(); // wake up I2C bus
+  // Wire.begin(); // wake up I2C bus
+  Wire.begin(I2C_MASTER, 0x00, I2C_PINS_18_19, I2C_PULLUP_EXT, 1800000);
 
   teensySource.start();
   mcpSource.start();
@@ -90,4 +91,7 @@ void loop() {
   // }
 
   sleepCounter.tick();
+
+  // TODO implement debounce so this is unnecessary
+  delay(2);
 }

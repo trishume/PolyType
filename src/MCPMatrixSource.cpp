@@ -1,6 +1,6 @@
 #include "MCPMatrixSource.h"
 #include "Arduino.h"
-#include "Wire.h"
+#include <i2c_t3.h>
 
 #define IODIRA 0x00  // i/o direction register
 #define IODIRB 0x01
