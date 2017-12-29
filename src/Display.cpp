@@ -66,7 +66,6 @@ void Display::render(bool pressedThisTick) {
   if(!sleeping) {
     display->println(header);
     display->println(VERSION_STR);
-    display->println(CODENAME_STR);
     if(layoutName != 0) {
       display->println("Layout:");
       display->println(layoutName);
