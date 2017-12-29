@@ -91,7 +91,4 @@ void loop() {
   // }
 
   sleepCounter.tick();
-
-  // TODO implement debounce so this is unnecessary
-  delay(2);
 }

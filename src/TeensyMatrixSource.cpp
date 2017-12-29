@@ -12,6 +12,7 @@ void TeensyMatrixSource::start() {
 }
 
 void TeensyMatrixSource::update() {
+  startingScan();
   pinMode(10,INPUT_PULLUP);
   for(int r=0; r<MAT_ROWS; r++) {
     for(int i=0;i<MAT_ROWS;i++) {
