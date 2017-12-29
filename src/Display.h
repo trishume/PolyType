@@ -23,6 +23,7 @@ protected:
   const char *layoutName;
   unsigned long lastLightUpdate;
   unsigned long lastKeyPress;
+  unsigned long numEvents;
 
   int modeNum;
 

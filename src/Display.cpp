@@ -9,7 +9,12 @@
 #define LED_PIN   12
 #define NUMPIXELS  6
 #define PIX_PER_SIDE 3
-#define NUM_MODES 3
+#define NUM_MODES 4
+
+#define MODE_OFF 0
+#define MODE_BLUE 1
+#define MODE_WHEEL 2
+#define MODE_LATENCY 3
 
 static const uint8_t kMinBrightness = 30;
 static const uint8_t kMaxBrightness = 70;
@@ -32,7 +37,7 @@ static uint32_t colorWheel(uint8_t wheelPos) {
   return Adafruit_NeoPixel::Color(wheelPos * 3, 255 - wheelPos * 3, 0);
 }
 
-Display::Display() : dirty(true), layoutName(0), lastLightUpdate(0), modeNum(0) {
+Display::Display() : dirty(true), layoutName(0), lastLightUpdate(0), modeNum(0), numEvents(0) {
   display = &theOnlyDisplay;
   header = defaultHeader;
 }
@@ -50,11 +55,19 @@ void Display::setup() {
 
 void Display::render(bool pressedThisTick) {
   unsigned long t = millis();
-  if(pressedThisTick) lastKeyPress = t;
+  if(pressedThisTick) {
+    lastKeyPress = t;
+    numEvents += 1;
+  }
   unsigned long timeSinceUpdate = t - lastLightUpdate;
-  unsigned long timeBetweenUpdates = (modeNum == 0) ? 4000 : 30;
+  unsigned long timeBetweenUpdates = 30;
+  if(modeNum == MODE_OFF) {
+    timeBetweenUpdates = 4000;
+  } else if(modeNum == MODE_LATENCY) {
+    timeBetweenUpdates = 0;
+  }
 
-  if(!sleeping && timeSinceUpdate > timeBetweenUpdates) {
+  if(!sleeping && timeSinceUpdate >= timeBetweenUpdates) {
     renderLights(t);
     lastLightUpdate = t;
   }
@@ -66,6 +79,8 @@ void Display::render(bool pressedThisTick) {
   if(!sleeping) {
     display->println(header);
     display->println(VERSION_STR);
+    display->print("Count:");
+    display->println(numEvents);
     if(layoutName != 0) {
       display->println("Layout:");
       display->println(layoutName);
@@ -107,15 +122,21 @@ void Display::renderLights(unsigned long t) {
     pixels.setBrightness(kMaxBrightness-keyFade);
   }
 
+  if(modeNum == MODE_LATENCY) {
+    pixels.setBrightness(200);
+  }
+
   uint32_t side[PIX_PER_SIDE];
   unsigned long wheelPos = t >> 5;
   for(unsigned i = 0; i < PIX_PER_SIDE; ++i) {
-    if(modeNum == 0) {
+    if(modeNum == MODE_OFF) {
       side[i] = Adafruit_NeoPixel::Color(0,0,0);
-    } else if(modeNum == 1) {
+    } else if(modeNum == MODE_BLUE) {
       side[i] = Adafruit_NeoPixel::Color(0,0,100);
-    } else {
+    } else if(modeNum == MODE_WHEEL) {
       side[i] = colorWheel((wheelPos+(i*12)) % 256);
+    } else if(modeNum == MODE_LATENCY) {
+      side[i] = colorWheel(((numEvents % 3) * 83) % 256);
     }
   }
 

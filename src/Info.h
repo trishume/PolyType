@@ -1,1 +1,1 @@
-#define VERSION_STR "v0.8.1: Bounce"
+#define VERSION_STR "v0.8.2: Flash"
