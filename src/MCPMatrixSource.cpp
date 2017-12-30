@@ -51,7 +51,7 @@ void MCPMatrixSource::start() {
 
 void MCPMatrixSource::update() {
   // TODO maybe reset once in N scans, like every second
-  // start();
+  start();
 
   startingScan();
   for(int r=0; r<MAT_ROWS; r++) {

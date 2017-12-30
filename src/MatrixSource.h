@@ -28,7 +28,9 @@ protected:
   void startingScan();
   inline void setState(int r, int c, int val) {
     if(matrix[r][c] != val) {
-      if(scanStart < lastEvent[r][c] + DEBOUNCE_TIME) {
+      unsigned long last = lastEvent[r][c];
+      // handle overflow wrapping, which leads to
+      if(!(scanStart < last || scanStart >= lastEvent[r][c] + DEBOUNCE_TIME)) {
         // Serial.println("debounce");
         return;
       }
