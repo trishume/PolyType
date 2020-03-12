@@ -27,7 +27,7 @@ BUILDDIR = $(abspath $(CURDIR)/build)
 #************************************************************************
 
 # base teensyduino path
-ARDUINO_PATH = /Applications/Arduino.app/Contents/Java
+ARDUINO_PATH = /Applications/Teensyduino.app/Contents/Java
 
 # path location for Teensy Loader, teensy_post_compile and teensy_reboot
 TOOLSPATH = $(ARDUINO_PATH)/hardware/tools

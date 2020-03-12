@@ -60,7 +60,7 @@ void setup() {
   mcpSource.start();
   connectPipeline();
 
-  layoutProc.setLayout(0);
+  layoutProc.setLayout(INITIAL_LAYOUT);
   disp.render(false);
 
   lastTick = micros();

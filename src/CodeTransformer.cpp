@@ -98,8 +98,8 @@ static const int specialKeyCodes[26] = {
   0, // v
   0, // w
   KEY_ESC, // x
-  0, // y
-  0, // z
+  KEY_F11, // y
+  KEY_F12, // z
 };
 
 static const int fnKeyCodes[10] = {

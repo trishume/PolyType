@@ -5,6 +5,8 @@
 #include "Pipe.h"
 #include "Display.h"
 
+#define INITIAL_LAYOUT 2
+
 class LayoutProcessor : public Pipe<KeyMatrixEvent>
 {
 public:

@@ -4,7 +4,7 @@
 #include "PacketTypes.h"
 #include "Pipe.h"
 
-#define SLEEP_COUNT 20000
+#define SLEEP_COUNT 200000
 
 class SleepCounter : public Pipe<KeyCodeEvent>
 {
