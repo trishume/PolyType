@@ -9,7 +9,7 @@
 #define MAT_COLS 7
 
 // The debounce delay before re-polling a key in microseconds
-#define DEBOUNCE_TIME 5000
+#define DEBOUNCE_TIME 20000
 
 class MatrixSource
 {
